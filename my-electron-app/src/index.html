@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Hello World!</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-blue-300">
+    <h1 class="text-3xl text-center pt-4 pb-8">To Do Desktop Application</h1>
+    <div class="w-screen flex">
+      <div class="w-1/2 text-center bg-gray-200">
+        <h2 class="text-2xl p-4">Add To Do</h2>
+        <form id="addToDo">
+          <input
+            type="text"
+            id="todo"
+            class="w-1/2 p-2 rounded-md m-4"
+            placeholder="Enter your to do"
+          />
+          <button
+            type="submit"
+            class="bg-blue-500 text-white p-2 rounded-lg"
+            id="submit"
+          >
+            Add
+          </button>
+          <p class="hidden "id="form-error"></p>
+        </form>
+      </div>
+      <div class="w-1/2 text-center bg-gray-200">
+        <h2 class="text-2xl p-4">To Do - List</h2>
+        <div id="output">
+          <p id="toDoTitle">Clean</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script src="./renderer.js"></script>
+  </body>
+</html>
