@@ -16,7 +16,7 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile("src/index.html");
-  /*   mainWindow.webContents.openDevTools(); // Changed from mainWindow to win */
+  /*   mainWindow.webContents.openDevTools(); */
 };
 
 app.whenReady().then(() => {
@@ -44,8 +44,37 @@ app.whenReady().then(() => {
     }
   });
 
+  ipcMain.handle("statusChange", async (_, id) => {
+    try {
+      const updatedToDo = await Prisma.toDo.update({
+        where: {
+          id: id,
+        },
+        data: {
+          completed: true,
+        },
+      });
+      return updatedToDo;
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+
+  ipcMain.handle("delete", async (_, id) => {
+    try {
+      const deletedToDo = await Prisma.toDo.delete({
+        where: {
+          id: id,
+        },
+      });
+      return deletedToDo;
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   createWindow();
