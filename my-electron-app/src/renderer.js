@@ -28,11 +28,16 @@ const createElement = (type, className, text, id) => {
 const createToDoElement = (todo) => {
   const div = createElement(
     "div",
-    "flex p-4 justify-between cursor-pointer transition duration-300 ease-in-out hover:bg-emerald-300 rounded-md mr-2 mb-2"
+    "flex p-4 justify-between cursor-pointer transition duration-300 ease-in-out hover:bg-slate-300 rounded-md mr-2 mb-2"
   );
+
+  if (todo.completed === true) {
+    div.classList.add("bg-emerald-300");
+  } else {
+    div.classList.remove("bg-emerald-300");
+  }
+
   div.addEventListener("click", () => {
-    /*     if (todo.completed) {
-        div.classList.add("bg-emerald-300");} */
     statusChange(todo.id);
   });
   const p = createElement("p", "font-semibold text-lg", todo.title);
@@ -52,11 +57,31 @@ const statusChange = async (id) => {
   console.log(res);
 };
 
-const deleteToDoElement = async (id) => {
-  const res = await window.todos.delete(id);
+const visualMark = (id) => {
   const index = _Todos.findIndex((todo) => todo.id === id);
-  _Todos.splice(index, 1);
-  listToDos();
+  const todo = _Todos[index];
+  if (todo.completed === true) {
+    todo.classList.add("bg-emerald-300");
+  } else {
+    todo.classList.remove("bg-emerald-300");
+  }
+};
+
+//CHANGE FUNCTION ABOVE TO A TOGGLE FUNCTION THAT CHANGES COMPLETED TO TRUE OR FALSE
+
+//IF (COMPLETED === TRUE) {TODO.COMPLETED = FALSE} ELSE {TODO.COMPLETED = TRUE}
+
+//FIND A WAY TO CHANGE THE COLOR OF THE TEXT WHEN COMPLETED IS TRUE OR FALSE
+
+const deleteToDoElement = async (id) => {
+  if (todo.completed === true) {
+    const res = await window.todos.delete(id);
+    const index = _Todos.findIndex((todo) => todo.id === id);
+    _Todos.splice(index, 1);
+    listToDos();
+  } else {
+    alert("You can't delete a todo that is not completed");
+  }
 };
 
 document.querySelector("#addToDo").addEventListener("submit", async (e) => {

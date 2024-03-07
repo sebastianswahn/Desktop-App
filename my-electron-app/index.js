@@ -46,7 +46,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle("statusChange", async (_, id) => {
     try {
-      const updatedToDo = await Prisma.toDo.update({
+      const currentToDo = await Prisma.toDo.update({
         where: {
           id: id,
         },
